@@ -1,0 +1,46 @@
+[9:12 AM, 5/28/2024] Shantanu Sir Velocity: pipeline {
+
+	agent {
+			label {
+					label 'built-in'
+					customWorkspace '/mnt/test'
+			}
+	}
+	
+	stages {
+				stage ('on-master') {
+						steps {
+								sh "yum install git -y"
+								sh "yum install tree -y"
+						}
+				}
+				
+				stage ('slave-1'){
+				agent {
+						label {
+								label 'slave-1'
+								customWorkspace '/mnt/data'
+						}
+				}
+				steps {
+						sh "sudo yum install git tree httpd -y"
+						sh "sudo service httpd start"
+				}
+				}
+				
+				stage ('slave-2'){
+				agent {
+						label {
+								label 'slave-2'
+								customWorkspace '/mnt/data'
+						}
+				}
+				steps {
+						sh "sudo yum install git tree docker -y"
+						sh "sudo service docker start"
+				}
+				}
+	}
+
+}
+
