@@ -1,0 +1,39 @@
+[9:31 AM, 5/27/2024] Shantanu Sir Velocity: pipeline {
+
+		agent any
+		
+		stages {
+		
+				stage ('stage-1') {
+					
+						steps {
+									echo "this is stage 1"
+									sleep 10
+						}
+				
+				}
+				
+				stage ('stage-2') {
+				
+						steps {
+									
+								echo "this is stage 2"
+								sleep 10
+						
+						}
+				}
+				
+				stage ('stage-3') {
+				
+						steps {
+									
+								echo "this is stage 3"
+								sleep 10
+						
+						}
+				}
+		}
+
+}
+
+
