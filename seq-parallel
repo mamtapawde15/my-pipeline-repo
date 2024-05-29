@@ -1,0 +1,166 @@
+[9:31 AM, 5/27/2024] Shantanu Sir Velocity: pipeline {
+		agent any
+		
+		stages {
+		
+			stage ('seq-1') {
+			
+				steps {
+						sleep 10
+				}
+			
+			}
+		
+			stage ('parallel-stages') {
+			
+			parallel {
+			
+				stage ("parallel-1") {
+						steps {
+						
+							sleep 10
+						}
+				}
+				
+				stage ("parallel-2") {
+						steps {
+						
+							sleep 10
+						}
+				}
+				
+				stage ("parallel-3") {
+						steps {
+						
+							sleep 10
+						}
+				}
+			
+			
+			
+			}		
+			
+			
+			}
+			
+			stage ('seq-2') {
+			
+				steps {
+						sleep 10
+				}
+			
+			}
+			
+			stage ('seq-3') {
+			
+				steps {
+						sleep 10
+				}
+			
+			}
+		
+		}
+}
+[8:25 AM, 5/28/2024] Shantanu Sir Velocity: To join the video meeting, click this link: https://meet.google.com/apf-vrae-djj
+Otherwise, to join by phone, dial +1 401-646-2357 and enter this PIN: 369 850 305#
+To view more phone numbers, click this link: https://tel.meet/apf-vrae-djj?hs=5
+[8:25 AM, 5/28/2024] Shantanu Sir Velocity: pls join need co-host
+[9:03 AM, 5/28/2024] Shantanu Sir Velocity: pipeline {
+
+		agent {
+		
+				label {
+				
+							label 'slave-1'
+							customWorkspace '/mnt/pipeline'
+				
+				}
+		
+		}
+		
+		stages {
+		
+				stage ('stage-1') {
+					
+						steps {	
+									sh 'rm -rf *'
+									sh 'mkdir velocity'
+						}
+				
+				}
+				
+				stage ('stage-2') {
+				
+						steps {
+							
+								dir ('/mnt/data'){
+											
+											sh 'mkdir velocity-aws'
+								}
+						
+						}
+				
+				}
+				
+				stage ('stage-3') {
+				
+						steps {
+							
+								dir ('/mnt/data-1'){
+											
+											sh 'mkdir velocity-aws-1'
+								}
+						
+						}
+				
+				}
+		
+		}
+
+}
+[9:12 AM, 5/28/2024] Shantanu Sir Velocity: pipeline {
+
+	agent {
+			label {
+					label 'built-in'
+					customWorkspace '/mnt/test'
+			}
+	}
+	
+	stages {
+				stage ('on-master') {
+						steps {
+								sh "yum install git -y"
+								sh "yum install tree -y"
+						}
+				}
+				
+				stage ('on-slave-1'){
+				agent {
+						label {
+								label 'slave-1'
+								customWorkspace '/mnt/data'
+						}
+				}
+				steps {
+						sh "sudo yum install git tree httpd -y"
+						sh "sudo service httpd start"
+				}
+				}
+				
+				stage ('on-slave-2'){
+				agent {
+						label {
+								label 'slave-2'
+								customWorkspace '/mnt/data'
+						}
+				}
+				steps {
+						sh "sudo yum install git tree docker -y"
+						sh "sudo service docker start"
+				}
+				}
+	}
+
+}
+
